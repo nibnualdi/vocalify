@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "782393565057",
+    "project_id": "vocalify-d0c53",
+    "storage_bucket": "vocalify-d0c53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782393565057:android:390bfb1f0a935775249280",
+        "android_client_info": {
+          "package_name": "in.app.vocalify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP7-vx5H4lEMhiJFVLq-FjiAMi8qZSq-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
