@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { View, Button, Text, Animated, Dimensions } from "react-native";
 import SlidingUpPanel from "rn-sliding-up-panel";
-import AudioPlayer from "./AudioPlayer";
 
 const styles = {
   container: {
@@ -28,19 +27,6 @@ const SlidingUp = () => {
       <View style={styles.container}>
         <Text>Ini pake function componnet</Text>
         <Button title="Hide" onPress={() => ref.hide()} />
-        <AudioPlayer
-          track={[
-            {
-              id: "1",
-              url: "https://www.chosic.com/wp-content/uploads/2021/07/The-Epic-Hero-Epic-Cinematic-Keys-of-Moon-Music.mp3",
-              title: "Keys of moon",
-              artist: "The Epic Hero",
-              artwork: "https://picsum.photos/id/1003/200/300",
-              album: "",
-              duration: 149,
-            },
-          ]}
-        />
       </View>
     </SlidingUpPanel>
   );
