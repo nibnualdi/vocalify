@@ -2,8 +2,12 @@ import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import MusicCard from "./MusicCard";
 
 import { API_MOCK } from "../constans/API_MOCK";
+import { useGetAllSongsQuery } from "../redux/services/song";
 
 const DiscoverSection = () => {
+  const { data, error, isLoading } = useGetAllSongsQuery("");
+  const songs = data?.songs;
+
   return (
     <View style={styles.sectionContainer}>
       <View style={styles.headerContainer}>
@@ -11,15 +15,53 @@ const DiscoverSection = () => {
         <Text style={styles.title}>Discover</Text>
       </View>
       <ScrollView horizontal decelerationRate={0} snapToInterval={350} snapToAlignment={"center"}>
-        <FlatList
-          data={API_MOCK}
-          renderItem={() => <MusicCard />}
-          contentContainerStyle={{ gap: 10 }}
-          showsVerticalScrollIndicator={false}
-          horizontal={false}
-          showsHorizontalScrollIndicator={false}
-          numColumns={Math.ceil(API_MOCK.length / 3)}
-        />
+        {isLoading ? (
+          <Text>Loading...</Text>
+        ) : (
+          <>
+            {error ? (
+              <Text>Somthing went wrong...</Text>
+            ) : (
+              <>
+                {songs.length < 3 ? (
+                  <FlatList
+                    data={songs || []}
+                    renderItem={({ item }) => (
+                      <MusicCard
+                        title={item.title}
+                        artist={item.artist_name}
+                        imageUrl={item.image_url}
+                        songUrl={item.song_url}
+                      />
+                    )}
+                    contentContainerStyle={{ gap: 10 }}
+                    showsVerticalScrollIndicator={false}
+                    horizontal={false}
+                    showsHorizontalScrollIndicator={false}
+                    numColumns={1}
+                  />
+                ) : (
+                  <FlatList
+                    data={songs || []}
+                    renderItem={({ item }) => (
+                      <MusicCard
+                        title={item.title}
+                        artist={item.artist_name}
+                        imageUrl={item.image_url}
+                        songUrl={item.song_url}
+                      />
+                    )}
+                    contentContainerStyle={{ gap: 10 }}
+                    showsVerticalScrollIndicator={false}
+                    horizontal={false}
+                    showsHorizontalScrollIndicator={false}
+                    numColumns={Math.ceil(API_MOCK.length / 3)}
+                  />
+                )}
+              </>
+            )}
+          </>
+        )}
       </ScrollView>
     </View>
   );

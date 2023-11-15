@@ -5,6 +5,7 @@ import ArtistsSection from "./ArtistsSection";
 import Navbar from "./Navbar";
 import Header from "./Header";
 import SlidingUp from "./SlidingUp";
+import PlayPauseButton from "./AudioPlayer/PlayPauseButton";
 
 export {
   MusicCard,
@@ -14,4 +15,5 @@ export {
   Navbar,
   Header,
   SlidingUp,
+  PlayPauseButton
 }

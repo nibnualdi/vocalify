@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import { View, Button, Text, Animated, Dimensions } from "react-native";
 import SlidingUpPanel from "rn-sliding-up-panel";
+import AudioPlayer from "./AudioPlayer/AudioPlayer";
+import PlayPauseButton from "./AudioPlayer/PlayPauseButton";
 
 const styles = {
   container: {
@@ -25,7 +27,9 @@ const SlidingUp = () => {
       friction={0.8}
     >
       <View style={styles.container}>
+      <PlayPauseButton />
         <Text>Ini pake function componnet</Text>
+        <AudioPlayer />
         <Button title="Hide" onPress={() => ref.hide()} />
       </View>
     </SlidingUpPanel>
