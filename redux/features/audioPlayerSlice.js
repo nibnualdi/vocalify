@@ -5,16 +5,21 @@ const initialState = {
   title: "",
   artistName: "",
   isPlaying: false,
-  isLoading: false
+  isLoading: false,
+  id: "",
 }
 
 export const audioPlayerSlice = createSlice({
   name: 'audioPlayer',
   initialState,
   reducers: {
-    setAudioTitleAndArtist: (state, action) => {
+    setTitleAndArtist: (state, action) => {
       state.title = action.payload.title
       state.artistName = action.payload.artistName
+      state.song = action.payload.song
+      state.id = action.payload.id
+    },
+    setAudio: (state, action) => {
       state.song = action.payload.song
     },
     setIsPlaying: (state, action) => {
@@ -26,6 +31,6 @@ export const audioPlayerSlice = createSlice({
   }
 })
 
-export const { setAudioTitleAndArtist, setIsPlaying, setIsloading } = audioPlayerSlice.actions
+export const { setTitleAndArtist, setAudio, setIsPlaying, setIsloading } = audioPlayerSlice.actions
 
 export default audioPlayerSlice.reducer

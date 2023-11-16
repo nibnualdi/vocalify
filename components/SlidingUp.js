@@ -4,6 +4,7 @@ import SlidingUpPanel from "rn-sliding-up-panel";
 import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import PlayPauseButton from "./AudioPlayer/PlayPauseButton";
 import { useSelector } from "react-redux";
+import NextButton from "./AudioPlayer/NextButton";
 
 const SlidingUp = () => {
   let ref = useRef();
@@ -11,26 +12,28 @@ const SlidingUp = () => {
   const { height } = Dimensions.get("window");
   const title = useSelector((state)=>state.audioPlayer.title)
 
-  useEffect(()=>{
-    if(title) {
-      Animated.timing(animatedValue, {
-        toValue: 140,
-        duration: 1000,
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [title])
+  // useEffect(()=>{
+  //   if(title) {
+  //     Animated.timing(animatedValue, {
+  //       toValue: 140,
+  //       duration: 1000,
+  //       useNativeDriver: true,
+  //     }).start();
+  //   }
+  //   console.log("title: ", title)
+  // }, [title])
 
   return (
     <SlidingUpPanel
       ref={(c) => (ref = c)}
-      snappingPoints={[150]}
+      snappingPoints={[140]}
       animatedValue={animatedValue}
-      draggableRange={{ top: height, bottom: 70 }}
+      draggableRange={{ top: height, bottom: 140 }}
       friction={0.8}
     >
       <View style={styles.container}>
       <PlayPauseButton />
+      <NextButton />
         <Text>Ini pake function componnet</Text>
         <AudioPlayer />
         <Button title="Hide" onPress={() => ref.hide()} />
