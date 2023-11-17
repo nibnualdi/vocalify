@@ -1,19 +1,10 @@
 import { Image, StyleSheet, Text, TouchableHighlight, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setAudio,
-  setIsPlaying,
-  setIsloading,
-  setTitleAndArtist,
-} from "../redux/features/audioPlayerSlice";
-import { Audio } from "expo-av";
+import { useSelector } from "react-redux";
 import PlayPauseButton from "./AudioPlayer/PlayPauseButton";
 import { useAudioPlayer } from "../hooks/audioPlayer";
 
 const MusicCard = ({ id, title, artist, imageUrl, songUrl }) => {
-  const dispatch = useDispatch();
   const selectedId = useSelector((state) => state.audioPlayer.id);
-  const isLoading = useSelector((state) => state.audioPlayer.isLoading);
   const { playNewSound } = useAudioPlayer();
 
   return (
