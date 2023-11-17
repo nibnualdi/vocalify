@@ -4,6 +4,7 @@ import SlidingUpPanel from "rn-sliding-up-panel";
 import PlayPauseButton from "./AudioPlayer/PlayPauseButton";
 import { useSelector } from "react-redux";
 import NextButton from "./AudioPlayer/NextButton";
+import { useLazyGetAllSongsExceptSelectedOneQuery } from "../redux/services/song";
 
 const SlidingUp = () => {
   let ref = useRef();
@@ -13,6 +14,17 @@ const SlidingUp = () => {
   const imageUrl = useSelector((state) => state.audioPlayer.imageUrl);
   const title = useSelector((state) => state.audioPlayer.title);
   const artistName = useSelector((state) => state.audioPlayer.artistName);
+  const id = useSelector((state) => state.audioPlayer.id);
+
+  const [fetchSongs, result] = useLazyGetAllSongsExceptSelectedOneQuery();
+  const songs = result?.data?.songs
+
+  useEffect(() => {
+    if (!id) return;
+    fetchSongs(id);
+  }, [id]);
+  
+  console.log("songs2: ", songs);
 
   // not prioritize
   // open the sliding up smoothly
@@ -26,7 +38,7 @@ const SlidingUp = () => {
   //   }
   //   console.log("title: ", title)
   // }, [title])
-  
+
   // solution 2 but the behavior of the velocity is strange
   // and the user still can drop all the way down the sliding
   // useEffect(()=>{
@@ -51,7 +63,9 @@ const SlidingUp = () => {
         <View style={styles.container}>
           <Image
             source={{
-              uri: imageUrl ? imageUrl : "https://dpcpa.com/app/uploads/2015/01/thumbnail-default.jpg",
+              uri: imageUrl
+                ? imageUrl
+                : "https://dpcpa.com/app/uploads/2015/01/thumbnail-default.jpg",
             }}
             style={styles.image}
             width={50}
@@ -82,7 +96,9 @@ const SlidingUp = () => {
           friction={0.8}
           backdropOpacity={0}
         >
-          <Text style={{width: "100%", height: "100%", backgroundColor: "green"}}>Here is the lyric and next songs tabs</Text>
+          <Text style={{ width: "100%", height: "100%", backgroundColor: "green" }}>
+            Here is the lyric and next songs tabs
+          </Text>
         </SlidingUpPanel>
       </>
     </SlidingUpPanel>

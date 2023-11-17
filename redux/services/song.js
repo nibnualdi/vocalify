@@ -13,7 +13,13 @@ export const songApi = createApi({
     getAllSongs: builder.query({
       query: () => 'songs',
     }),
+    getAllSongsExceptSelectedOne: builder.query({
+      query: (id) => {
+        console.log("id from midleware: ", id)
+        return `songs/except/${id}`
+      },
+    }),
   }),
 })
 
-export const { useGetAllSongsQuery } = songApi
+export const { useGetAllSongsQuery, useLazyGetAllSongsExceptSelectedOneQuery } = songApi
