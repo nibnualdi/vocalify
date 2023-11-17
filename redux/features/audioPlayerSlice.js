@@ -7,6 +7,7 @@ const initialState = {
   isPlaying: false,
   isLoading: false,
   id: "",
+  imageUrl: "",
 }
 
 export const audioPlayerSlice = createSlice({
@@ -16,7 +17,7 @@ export const audioPlayerSlice = createSlice({
     setTitleAndArtist: (state, action) => {
       state.title = action.payload.title
       state.artistName = action.payload.artistName
-      state.song = action.payload.song
+      state.imageUrl = action.payload.imageUrl
       state.id = action.payload.id
     },
     setAudio: (state, action) => {
