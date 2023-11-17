@@ -8,26 +8,13 @@ import {
 } from "../redux/features/audioPlayerSlice";
 import { Audio } from "expo-av";
 import PlayPauseButton from "./AudioPlayer/PlayPauseButton";
+import { useAudioPlayer } from "../hooks/audioPlayer";
 
 const MusicCard = ({ id, title, artist, imageUrl, songUrl }) => {
   const dispatch = useDispatch();
   const selectedId = useSelector((state) => state.audioPlayer.id);
   const isLoading = useSelector((state) => state.audioPlayer.isLoading);
-
-  const playNewSound = async ({ title, artistName, songUrl }) => {
-    console.log("Loading Sound");
-    dispatch(setIsloading(true));
-    dispatch(setIsPlaying(true));
-    dispatch(setTitleAndArtist({ id, title, artistName }));
-    const { sound } = await Audio.Sound.createAsync({
-      uri: songUrl,
-    });
-    dispatch(setAudio({ song: sound }));
-
-    console.log("Playing Sound");
-    await sound.playAsync();
-    dispatch(setIsloading(false));
-  };
+  const { playNewSound } = useAudioPlayer();
 
   return (
     <TouchableHighlight
