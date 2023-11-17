@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    opacity: .5
+    opacity: 0.5,
   },
   title: {
     fontFamily: "Inter-Regular",
