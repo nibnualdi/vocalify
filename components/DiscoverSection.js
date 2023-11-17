@@ -22,43 +22,23 @@ const DiscoverSection = () => {
             {error ? (
               <Text>Somthing went wrong...</Text>
             ) : (
-              <>
-                {songs.length < 3 ? (
-                  <FlatList
-                    data={songs || []}
-                    renderItem={({ item }) => (
-                      <MusicCard
-                        title={item.title}
-                        artist={item.artist_name}
-                        imageUrl={item.image_url}
-                        songUrl={item.song_url}
-                      />
-                    )}
-                    contentContainerStyle={{ gap: 10 }}
-                    showsVerticalScrollIndicator={false}
-                    horizontal={false}
-                    showsHorizontalScrollIndicator={false}
-                    numColumns={1}
-                  />
-                ) : (
-                  <FlatList
-                    data={songs || []}
-                    renderItem={({ item }) => (
-                      <MusicCard
-                        title={item.title}
-                        artist={item.artist_name}
-                        imageUrl={item.image_url}
-                        songUrl={item.song_url}
-                      />
-                    )}
-                    contentContainerStyle={{ gap: 10 }}
-                    showsVerticalScrollIndicator={false}
-                    horizontal={false}
-                    showsHorizontalScrollIndicator={false}
-                    numColumns={Math.ceil(API_MOCK.length / 3)}
+              <FlatList
+                data={songs || []}
+                renderItem={({ item }) => (
+                  <MusicCard
+                    id={item.id}
+                    title={item.title}
+                    artist={item.artist_name}
+                    imageUrl={item.image_url}
+                    songUrl={item.song_url}
                   />
                 )}
-              </>
+                contentContainerStyle={{ gap: 10 }}
+                showsVerticalScrollIndicator={false}
+                horizontal={false}
+                showsHorizontalScrollIndicator={false}
+                numColumns={songs.length < 3 ? 1 : Math.ceil(API_MOCK.length / 3)}
+              />
             )}
           </>
         )}
