@@ -20,7 +20,7 @@ const MusicCard = ({ id, title, artist, imageUrl, songUrl }) => {
     <TouchableHighlight
       underlayColor={"rgba(1,1,1,.05)"}
       style={styles.container}
-      onPress={() => playNewSound({ id, artistName: artist, songUrl, title })}
+      onPress={() => playNewSound({ id, artistName: artist, songUrl, title, imageUrl })}
     >
       <>
         <View style={styles.imageContainer}>
