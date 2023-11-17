@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { View, Button, Text, Animated, Dimensions } from "react-native";
+import { View, Button, Text, Animated, Dimensions, Image, StyleSheet } from "react-native";
 import SlidingUpPanel from "rn-sliding-up-panel";
-import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import PlayPauseButton from "./AudioPlayer/PlayPauseButton";
 import { useSelector } from "react-redux";
 import NextButton from "./AudioPlayer/NextButton";
@@ -10,8 +9,12 @@ const SlidingUp = () => {
   let ref = useRef();
   const animatedValue = new Animated.Value(0);
   const { height } = Dimensions.get("window");
-  const title = useSelector((state)=>state.audioPlayer.title)
+  const imageUrl = useSelector((state) => state.audioPlayer.imageUrl);
+  const title = useSelector((state) => state.audioPlayer.title);
+  const artistName = useSelector((state) => state.audioPlayer.artistName);
 
+  // not prioritize
+  // open the sliding up smoothly
   // useEffect(()=>{
   //   if(title) {
   //     Animated.timing(animatedValue, {
@@ -23,6 +26,8 @@ const SlidingUp = () => {
   //   console.log("title: ", title)
   // }, [title])
 
+  if(!imageUrl) return
+
   return (
     <SlidingUpPanel
       ref={(c) => (ref = c)}
@@ -32,11 +37,20 @@ const SlidingUp = () => {
       friction={0.8}
     >
       <View style={styles.container}>
-      <PlayPauseButton />
-      <NextButton />
-        <Text>Ini pake function componnet</Text>
-        <AudioPlayer />
-        <Button title="Hide" onPress={() => ref.hide()} />
+        <Image source={{
+          uri: imageUrl
+        }} style={styles.image} width={50} height={50} />
+
+        <View style={styles.textContainer}>
+          <Text style={styles.title} numberOfLines={1}>{title}</Text>
+          <Text style={styles.subTitle} numberOfLines={1}>{artistName}</Text>
+        </View>
+
+        <View style={styles.containerPlayPauseButton}>
+          <PlayPauseButton />
+        </View>
+        {/* <NextButton />
+        <Button title="Hide" onPress={() => ref.hide()} /> */}
       </View>
     </SlidingUpPanel>
   );
@@ -44,11 +58,32 @@ const SlidingUp = () => {
 
 export default SlidingUp;
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
     backgroundColor: "white",
-    alignItems: "center",
-    // justifyContent: "center",
+    padding: 10
   },
-};
+  image: {
+    flex: 1,
+  },
+  textContainer: {
+    flex: 4,
+    padding: 10,
+    height: 50,
+  },
+  title: {
+    width: 100
+  },
+  subTitle: {
+    width: 100
+  },
+  containerPlayPauseButton: {
+    flex: 1,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+})

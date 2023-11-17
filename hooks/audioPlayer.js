@@ -7,13 +7,13 @@ const useAudioPlayer = () => {
   const song = useSelector((state)=>state.audioPlayer.song);
   const selectedId = useSelector((state) => state.audioPlayer.id);
 
-  const playNewSound = async ({ id, title, artistName, songUrl }) => {
+  const playNewSound = async ({ id, title, artistName, songUrl, imageUrl }) => {
     if(id === selectedId) return
     
     console.log("Loading Sound");
     dispatch(setIsloading(true));
     dispatch(setIsPlaying(true));
-    dispatch(setTitleAndArtist({ id, title, artistName }));
+    dispatch(setTitleAndArtist({ id, title, artistName, imageUrl }));
     const { sound } = await Audio.Sound.createAsync({
       uri: songUrl,
     });
