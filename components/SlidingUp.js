@@ -5,6 +5,7 @@ import PlayPauseButton from "./AudioPlayer/PlayPauseButton";
 import { useSelector } from "react-redux";
 import NextButton from "./AudioPlayer/NextButton";
 import { useLazyGetAllSongsExceptSelectedOneQuery } from "../redux/services/song";
+import Tabs from "./Tabs";
 
 const SlidingUp = () => {
   let ref = useRef();
@@ -17,13 +18,13 @@ const SlidingUp = () => {
   const id = useSelector((state) => state.audioPlayer.id);
 
   const [fetchSongs, result] = useLazyGetAllSongsExceptSelectedOneQuery();
-  const songs = result?.data?.songs
+  const songs = result?.data?.songs;
 
   useEffect(() => {
     if (!id) return;
     fetchSongs(id);
   }, [id]);
-  
+
   console.log("songs2: ", songs);
 
   // not prioritize
@@ -87,8 +88,9 @@ const SlidingUp = () => {
           {/* <NextButton />
         <Button title="Hide" onPress={() => ref.hide()} /> */}
         </View>
+        <Tabs />
 
-        <SlidingUpPanel
+        {/* <SlidingUpPanel
           ref={(c) => (ref2 = c)}
           snappingPoints={[140]}
           animatedValue={animatedValue}
@@ -96,10 +98,8 @@ const SlidingUp = () => {
           friction={0.8}
           backdropOpacity={0}
         >
-          <Text style={{ width: "100%", height: "100%", backgroundColor: "green" }}>
-            Here is the lyric and next songs tabs
-          </Text>
-        </SlidingUpPanel>
+          <Tabs />
+        </SlidingUpPanel> */}
       </>
     </SlidingUpPanel>
   );
@@ -109,7 +109,6 @@ export default SlidingUp;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "white",
