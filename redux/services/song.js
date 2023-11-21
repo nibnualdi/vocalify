@@ -28,6 +28,11 @@ export const songApi = createApi({
         return `artists`;
       },
     }),
+    getAllSongsByArtistName: builder.query({
+      query: (name) => {
+        return `songs/artist/${name}`;
+      },
+    }),
   }),
 });
 
@@ -36,4 +41,5 @@ export const {
   useGetAllSongsExceptSelectedOneQuery,
   useGetASongByIdQuery,
   useGetAllArtistsQuery,
+  useGetAllSongsByArtistNameQuery,
 } = songApi;
