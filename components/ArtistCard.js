@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 
-const ArtistCard = ({ id, imageUrl, artis }) => {
+const ArtistCard = ({ id, imageUrl, artist }) => {
   return (
     <View>
       <Image
@@ -10,7 +10,7 @@ const ArtistCard = ({ id, imageUrl, artis }) => {
           height: 100,
         }}
       />
-      <Text style={styles.artistName}>{artis}</Text>
+      <Text style={styles.artistName}>{artist}</Text>
     </View>
   );
 };

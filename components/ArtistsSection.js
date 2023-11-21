@@ -23,7 +23,7 @@ const ArtistsSection = () => {
               <FlatList
                 data={artists}
                 renderItem={({ item }) => (
-                  <ArtistCard id={item.id} imageUrl={item.image_url} artis={item.name} />
+                  <ArtistCard id={item.id} imageUrl={item.image_url} artist={item.name} />
                 )}
                 showsVerticalScrollIndicator={false}
                 horizontal={false}

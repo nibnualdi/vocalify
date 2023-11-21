@@ -1,21 +1,36 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { ArtistCard, ArtistsSection } from "../../components";
-import { API_MOCK } from "../../constans/API_MOCK";
+import { useGetAllArtistsQuery } from "../../redux/services/song";
 
 const index = () => {
+  const { data, isLoading, isError } = useGetAllArtistsQuery();
+  const artists = data?.artists;
+
   return (
     <View style={styles.container}>
       <View style={styles.sectionContainer}>
         <View style={styles.headerContainer}>
           <Text style={styles.title}>Artists</Text>
         </View>
-        <FlatList
-          data={API_MOCK}
-          renderItem={() => <ArtistCard />}
-          horizontal={false}
-          numColumns={3}
-          columnWrapperStyle={{ paddingRight: 24, justifyContent: "space-around" }}
-        />
+        {isLoading ? (
+          <Text>Loading...</Text>
+        ) : (
+          <>
+            {isError ? (
+              <Text>Somthing went wrong...</Text>
+            ) : (
+              <FlatList
+                data={artists}
+                renderItem={({ item }) => (
+                  <ArtistCard id={item.id} imageUrl={item.image_url} artist={item.name} />
+                )}
+                horizontal={false}
+                numColumns={3}
+                columnWrapperStyle={{ paddingRight: 24, justifyContent: "space-around" }}
+              />
+            )}
+          </>
+        )}
       </View>
     </View>
   );
