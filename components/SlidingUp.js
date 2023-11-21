@@ -4,7 +4,6 @@ import SlidingUpPanel from "rn-sliding-up-panel";
 import PlayPauseButton from "./AudioPlayer/PlayPauseButton";
 import { useSelector } from "react-redux";
 import NextButton from "./AudioPlayer/NextButton";
-import { useLazyGetAllSongsExceptSelectedOneQuery } from "../redux/services/song";
 import Tabs from "./Tabs";
 
 const SlidingUp = () => {
@@ -15,17 +14,6 @@ const SlidingUp = () => {
   const imageUrl = useSelector((state) => state.audioPlayer.imageUrl);
   const title = useSelector((state) => state.audioPlayer.title);
   const artistName = useSelector((state) => state.audioPlayer.artistName);
-  const id = useSelector((state) => state.audioPlayer.id);
-
-  const [fetchSongs, result] = useLazyGetAllSongsExceptSelectedOneQuery();
-  const songs = result?.data?.songs;
-
-  useEffect(() => {
-    if (!id) return;
-    fetchSongs(id);
-  }, [id]);
-
-  console.log("songs2: ", songs);
 
   // not prioritize
   // open the sliding up smoothly

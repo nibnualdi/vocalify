@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   Animated,
+  FlatList,
   StatusBar,
   Text,
   TouchableOpacity,
@@ -8,14 +9,15 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { useGetASongByIdQuery } from "../redux/services/song";
+import { useGetASongByIdQuery, useGetAllSongsExceptSelectedOneQuery } from "../redux/services/song";
 import { useSelector } from "react-redux";
+import MusicCard from "./MusicCard";
 
 const LyricRoute = () => {
   const id = useSelector((state) => state.audioPlayer.id);
   const { data } = useGetASongByIdQuery(id);
   const lyric = data?.songs[0]?.lyric ? data?.songs[0]?.lyric : "Lyric is not available for now";
-  
+
   return (
     <View style={{ flex: 1, alignItems: "center", padding: 15, backgroundColor: "white" }}>
       <Text style={{ fontSize: 25 }}>{lyric}</Text>
@@ -23,7 +25,42 @@ const LyricRoute = () => {
   );
 };
 
-const SongsRoute = () => <View style={{ flex: 1, backgroundColor: "#673ab7" }} />;
+const SongsRoute = () => {
+  const id = useSelector((state) => state.audioPlayer.id);
+  const { data } = useGetAllSongsExceptSelectedOneQuery(id);
+  const { data: curentlyPlaying } = useGetASongByIdQuery(id);
+  const nextSongs = data?.songs;
+
+  return (
+    <View style={{ flex: 1, padding: 15, gap: 10, backgroundColor: "white" }}>
+      {/* curently playing */}
+      <MusicCard
+        id={curentlyPlaying?.songs[0]?.id}
+        title={curentlyPlaying?.songs[0]?.title}
+        artist={curentlyPlaying?.songs[0]?.artist_name}
+        imageUrl={curentlyPlaying?.songs[0]?.image_url}
+        songUrl={curentlyPlaying?.songs[0]?.song_url}
+      />
+      {/* curently playing */}
+
+      {/* next songs */}
+      <FlatList
+        data={nextSongs}
+        contentContainerStyle={{ gap: 10 }}
+        renderItem={({ item }) => (
+          <MusicCard
+            id={item.id}
+            title={item.title}
+            artist={item.artist_name}
+            imageUrl={item.image_url}
+            songUrl={item.song_url}
+          />
+        )}
+      />
+      {/* next songs */}
+    </View>
+  );
+};
 
 const renderScene = SceneMap({
   first: LyricRoute,

@@ -26,4 +26,4 @@ export const songApi = createApi({
   }),
 })
 
-export const { useGetAllSongsQuery, useLazyGetAllSongsExceptSelectedOneQuery, useGetASongByIdQuery } = songApi
+export const { useGetAllSongsQuery, useGetAllSongsExceptSelectedOneQuery, useGetASongByIdQuery } = songApi
