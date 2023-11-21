@@ -1,25 +1,40 @@
 import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import ArtistCard from "./ArtistCard";
 
-import { API_MOCK } from "../constans/API_MOCK";
+import { useGetAllArtistsQuery } from "../redux/services/song";
 
 const ArtistsSection = () => {
+  const { data, isLoading, isError } = useGetAllArtistsQuery();
+  const artists = data?.artists;
+
   return (
     <View style={styles.sectionContainer}>
       <View style={styles.headerContainer}>
         <Text style={styles.title}>Artists</Text>
       </View>
       <ScrollView horizontal>
-        <FlatList
-          data={API_MOCK}
-          renderItem={() => <ArtistCard />}
-          showsVerticalScrollIndicator={false}
-          horizontal={false}
-          showsHorizontalScrollIndicator={false}
-          numColumns={Math.ceil(API_MOCK.length / 2)}
-          contentContainerStyle={{ gap: 10 }}
-          columnWrapperStyle={{ gap: 5 }}
-        />
+        {isLoading ? (
+          <Text>Loading...</Text>
+        ) : (
+          <>
+            {isError ? (
+              <Text>Somthing went wrong...</Text>
+            ) : (
+              <FlatList
+                data={artists}
+                renderItem={({ item }) => (
+                  <ArtistCard id={item.id} imageUrl={item.image_url} artis={item.name} />
+                )}
+                showsVerticalScrollIndicator={false}
+                horizontal={false}
+                showsHorizontalScrollIndicator={false}
+                numColumns={Math.ceil(artists?.length < 3 ? 3 : artists?.length / 2)}
+                contentContainerStyle={{ gap: 10 }}
+                columnWrapperStyle={{ gap: 5 }}
+              />
+            )}
+          </>
+        )}
       </ScrollView>
     </View>
   );

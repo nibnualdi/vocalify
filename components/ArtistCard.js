@@ -1,26 +1,25 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 
-const ArtistCard = () => {
+const ArtistCard = ({ id, imageUrl, artis }) => {
   return (
     <View>
       <Image
         source={{
-          uri: "https://upload.wikimedia.org/wikipedia/id/b/ba/830records032.jpg",
+          uri: imageUrl ? imageUrl : "https://dpcpa.com/app/uploads/2015/01/thumbnail-default.jpg",
           width: 100,
           height: 100,
         }}
       />
-      <Text style={styles.artistName}>Artist name</Text>
+      <Text style={styles.artistName}>{artis}</Text>
     </View>
   );
 };
 
 export default ArtistCard;
 
-
 export const styles = StyleSheet.create({
   artistName: {
     fontFamily: "Inter-Regular",
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 });
