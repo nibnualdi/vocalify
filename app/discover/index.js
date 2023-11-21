@@ -1,8 +1,11 @@
 import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import { DiscoverSection, MusicCard } from "../../components";
-import { API_MOCK } from "../../constans/API_MOCK";
+import { useGetAllSongsQuery } from "../../redux/services/song";
 
 const index = () => {
+  const { data, isError, isLoading } = useGetAllSongsQuery("");
+  const songs = data?.songs;
+
   return (
     <View style={styles.container}>
       <View style={styles.sectionContainer}>
@@ -10,11 +13,29 @@ const index = () => {
           <Text style={styles.subTitle}>Quick picks</Text>
           <Text style={styles.title}>Discover</Text>
         </View>
-        <FlatList
-          data={API_MOCK}
-          renderItem={() => <MusicCard />}
-          contentContainerStyle={{ gap: 10 }}
-        />
+        {isLoading ? (
+          <Text>Loading...</Text>
+        ) : (
+          <>
+            {isError ? (
+              <Text>Somthing went wrong...</Text>
+            ) : (
+              <FlatList
+                data={songs}
+                renderItem={({ item }) => (
+                  <MusicCard
+                    id={item.id}
+                    title={item.title}
+                    artist={item.artist_name}
+                    imageUrl={item.image_url}
+                    songUrl={item.song_url}
+                  />
+                )}
+                contentContainerStyle={{ gap: 10 }}
+              />
+            )}
+          </>
+        )}
       </View>
     </View>
   );
