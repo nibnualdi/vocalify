@@ -28,6 +28,7 @@ export default Navbar;
 const styles = StyleSheet.create({
   containerNavbar: {
     flex: 1,
+    width: "100%",
     flexDirection: "row",
     position: "absolute",
     bottom: 0,

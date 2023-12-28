@@ -14,7 +14,8 @@ const DiscoverSection = () => {
         <Text style={styles.subTitle}>Quick picks</Text>
         <Text style={styles.title}>Discover</Text>
       </View>
-      <ScrollView horizontal decelerationRate={0} snapToInterval={350} snapToAlignment={"center"}>
+      {/* <ScrollView horizontal decelerationRate={0} snapToInterval={350} snapToAlignment={"center"}> */}
+      <ScrollView horizontal decelerationRate="fast">
         {isLoading ? (
           <Text>Loading...</Text>
         ) : (
