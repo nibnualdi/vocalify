@@ -16,7 +16,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -24,7 +27,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "in.app.vocalify"
+      "package": "in.app.vocalify",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ],
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -47,6 +55,17 @@
           "microphonePermission": "Allow Vocalify to access your microphone."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "bef72ace-6f46-4940-ad86-75ad22a03bd1"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/bef72ace-6f46-4940-ad86-75ad22a03bd1"
+    }
   }
 }
