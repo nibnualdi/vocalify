@@ -3,7 +3,7 @@ import { View, Button, Text, Animated, Dimensions, Image, StyleSheet } from "rea
 import SlidingUpPanel from "rn-sliding-up-panel";
 import PlayPauseButton from "./AudioPlayer/PlayPauseButton";
 import { useSelector } from "react-redux";
-import NextButton from "./AudioPlayer/NextButton";
+// import NextButton from "./AudioPlayer/NextButton";
 import Tabs from "./Tabs";
 
 const SlidingUp = () => {
